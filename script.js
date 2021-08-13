@@ -11,6 +11,9 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 const controlsContainer = document.querySelector('.controls');
+const msg = document.querySelector('.confirmation__msg');
+const yesButton = document.querySelector('.yes__button');
+const noButton = document.querySelector('.no__button');
 
 class Workout {
   date = new Date();
@@ -70,7 +73,7 @@ class Cycling extends Workout {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 // APPLICATION ARCHITECTURE
 class App {
   #map;
@@ -97,6 +100,10 @@ class App {
       'click',
       this._controlsFunctionality.bind(this)
     );
+    noButton.addEventListener('click', () => {
+      msg.classList.add('hide');
+    });
+    yesButton.addEventListener('click', this.reset);
   }
 
   _getPosition() {
@@ -339,7 +346,7 @@ class App {
 
   _controlsFunctionality(e) {
     if (e.target.classList.contains('clear-all')) {
-      this.reset();
+      msg.classList.remove('hide');
     }
 
     if (e.target.classList.contains('overview')) {
